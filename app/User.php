@@ -27,4 +27,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getIsAdminAttribute($value)
+    {
+        return $value ? true : false;
+    }
+
+    public function is_admin()
+    {
+        return $this->is_admin;
+    }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

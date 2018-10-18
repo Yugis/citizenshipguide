@@ -12,3 +12,29 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.spinner {
+    height: 35px;
+    width: 35px;
+    background: whitesmoke;
+    border-radius: 50px;
+    border: 2px solid transparent;
+    border-top-color: orangered;
+    border-bottom-color: orangered;
+    -webkit-animation: spinny 1s linear infinite;
+    animation: spinny 0.3s linear infinite;
+    display: block;
+
+    @keyframes spinny {
+        0% {
+            transform: rotate(0deg) scale(1);
+        }
+        50% {
+            // transform: rotate(180deg);
+        }
+
+        100% {
+            transform: rotate(180deg);
+        }
+    }
+}
