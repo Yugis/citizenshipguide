@@ -15,8 +15,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function () {
+	Route::get('/index', 'AdminsController@index')->name('index');
+	Route::post('/posts/{id}/approve', 'AdminPostscontroller@approve');
+});
+
+Route::get('/api/pending/posts', function () {
+	return \App\Post::whereApproved(0)->with('user')->get();
+});
+
+
 Auth::routes();
+Route::post('/login', 'Auth\LoginController@determineLoginType')->name('determine');
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/posts/create', 'PostsController@create')->name('post.create')->middleware('auth');
+Route::get('/posts/create', 'PostsController@create')->name('post.create');
 Route::resource('posts', 'PostsController');

@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,6 +42,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $post = Post::make($request->all());
+        $post->slug = str_slug($request->title, '-');
         $post->user_id = auth()->id();
         $post->save();
 

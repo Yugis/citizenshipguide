@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -35,5 +36,24 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function determineLoginType(Request $request)
+    {
+        $guest = \App\User::where('email', $request->email)->get();
+
+        if($guest->isEmpty()) {
+            $this->login($request);
+        }
+
+        if ($guest->first()->is_admin()) {
+            $this->login($request);
+
+            return redirect()->route('admin.index');
+        }
+
+        if (! $guest->first()->is_admin()) {
+            return $this->login($request);
+        }
     }
 }

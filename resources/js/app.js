@@ -18,6 +18,8 @@ require('./bootstrap');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 Vue.component('create-post', require('./components/CreatePost.vue'));
 Vue.component('flash', require('./components/Flash.vue'));
+Vue.component('pending-posts', require('./components/PendingPosts.vue'));
+Vue.component('pending-post', require('./components/PendingPost.vue'));
 
 const app = new Vue({
     el: '#app'

@@ -50,7 +50,6 @@
 				})
 				.then( (resp) => {
 					this.loading = false
-					console.log(resp.data)
 					flash('Your post was created!')
 				})
 			}

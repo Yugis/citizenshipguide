@@ -14,9 +14,15 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(App\Post::class, function (Faker $faker) {
+	$title = $faker->sentence;
+	$slug = str_slug($title, '-');
     return [
-        'title' => $faker->sentence,
+        'title' => $title,
         'body' => $faker->paragraph,
-        'user_id' => 1,
+        'slug' => $slug,
+        'approved' => $faker->boolean($chanceOfGettingTrue = 50),
+        'user_id' => function () {
+        	return factory('App\User')->create()->id;
+        },
     ];
 });
